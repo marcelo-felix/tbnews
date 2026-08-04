@@ -9,13 +9,13 @@ async function query(qs) {
     password: process.env.POSTGRES_PASSWORD,
   });
 
-  await client.connect();
-
   try {
+    await client.connect();
     const resq = await client.query(qs);
     return resq;
-  } catch {
+  } catch (error) {
     console.error(error);
+    throw error;
   } finally {
     await client.end();
   }

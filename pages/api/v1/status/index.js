@@ -10,9 +10,11 @@ async function status(request, response) {
 
   const respMaxConnections = maxConnectionsdb.rows[0].max_connections;
   const namedb = process.env.POSTGRES_DB;
+
+  //tratando a query como object para efitar sql injection
   const openedConnectionsdb = await database.query({
     text: "SELECT count(*)::int FROM pg_stat_activity WHERE datname = $1;",
-    values: [1],
+    values: [namedb],
   });
   const respOpenedConnections = openedConnectionsdb.rows[0].count;
   console.log(respOpenedConnections);
