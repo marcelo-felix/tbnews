@@ -1,11 +1,24 @@
-test("Status Code = 200", async () => {
-  const res = await fetch("http://localhost:3000/api/v1/status");
-  expect(res.status).toBe(200);
-  console.log(res.status);
+test("Versão do postgres:", async () => {
+  const response = await fetch("http://localhost:3000/api/v1/status");
+  expect(response.status).toBe(200);
+
+  const ver = await response.json();
+  expect(ver.dependencies.database.version).toEqual(16.0);
 });
 
-test("Retorne um erro = 404", async () => {
-  const res = await fetch("http://localhost:3000/api/v1/casa");
-  expect(res.status).toBe(404);
-  console.log(res.status);
+test("Conexões maximas.", async () => {
+  const response = await fetch("http://localhost:3000/api/v1/status");
+  expect(response.status).toBe(200);
+
+  const ver = await response.json();
+  expect(ver.dependencies.database.max_connections).toEqual(100);
+  console.log(ver);
+});
+
+test("Conexões abertas.", async () => {
+  const response = await fetch("http://localhost:3000/api/v1/status");
+  expect(response.status).toBe(200);
+
+  const ver = await response.json();
+  expect(ver.dependencies.database.opened_connections).toBe(0);
 });
