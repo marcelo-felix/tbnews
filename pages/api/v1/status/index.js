@@ -17,7 +17,6 @@ async function status(request, response) {
     values: [namedb],
   });
   const respOpenedConnections = openedConnectionsdb.rows[0].count;
-  console.log(respOpenedConnections);
 
   //Retorna um json em "http://localhost:3000/api/v1/status" se o status for 200
   response.status(200).json({

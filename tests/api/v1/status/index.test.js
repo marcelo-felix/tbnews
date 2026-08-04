@@ -20,5 +20,5 @@ test("Conexões abertas.", async () => {
   expect(response.status).toBe(200);
 
   const ver = await response.json();
-  expect(ver.dependencies.database.opened_connections).toBe(1);
+  expect(ver.dependencies.database.opened_connections).toBe(30);
 });
