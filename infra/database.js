@@ -10,9 +10,15 @@ async function query(qs) {
   });
 
   await client.connect();
-  const resq = await client.query(qs);
-  await client.end();
-  return resq;
+
+  try {
+    const resq = await client.query(qs);
+    return resq;
+  } catch {
+    console.error(error);
+  } finally {
+    await client.end();
+  }
 }
 
 export default { query: query };
